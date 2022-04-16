@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <h2>Welcome to ChatBox</h2>
+        <p>the place where you can chat with a random person. The new way to meet new people.</p>
+        <form action="/storeUser" method="post">
+            <label for="userName">Your name</label>
+            <input type="text" name="userName" id="userName" placeholder="name you want to be displayed" required>
+            <button class="CTA">start new chat</button>
+        </form>
+    </main>
+</body>
+</html>
