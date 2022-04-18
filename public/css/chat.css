@@ -1,0 +1,37 @@
+#messages {
+    height: 70vh;
+    background-color: gainsboro;
+    margin-top: 1em;
+    overflow-y: scroll;
+    list-style: none;
+}
+
+form {
+    display: flex;
+    background-color: black;
+    padding: .5em;
+}
+
+form input {
+    width: 100%;
+    padding: .5em;
+}
+
+form button {
+    padding: .5em 1em;
+}
+
+#messages li {
+    width: fit-content;
+}
+
+.outgoing {
+    background-color: rgb(199, 241, 199);
+    margin-left: 0;
+}
+
+.incoming {
+    background-color: white;
+    margin-left: auto;
+}
+

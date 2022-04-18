@@ -1,16 +1,28 @@
+require('dotenv').config()
 const express = require('express')
-const app = express()
-const server = require('http').Server(app)
-const PORT = 5500
+const http = require('http')
+const PORT = process.env.PORT || 5500
 const session = require('express-session')
 const path = require('path')
 const bodyParser = require('body-parser')
-require('dotenv').config()
+const mongoose = require('mongoose')
+const url = process.env.DB_URL
+
+const app = express()
+const server = http.createServer(app)
 
 module.exports = {
     server,
     PORT
 }
+
+mongoose.connect(url)
+.then(() => console.log('connected to mongoDB'))
+.catch(err => console.log(err))
+
+
+const loginRoute = require('./routes/loginRoute')
+const chatRoute = require('./routes/chatRoute')
 
 app
 .set('view engine', 'ejs')
@@ -24,12 +36,7 @@ app
         saveUninitialized: false
     })
 )
-
-require('./websocket.js')
-
-const loginRoute = require('./routes/loginRoute')
-const chatRoute = require('./routes/chatRoute')
-
-app
 .use('/', loginRoute)
 .use('/', chatRoute)
+
+require('./websocket.js')

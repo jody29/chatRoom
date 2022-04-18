@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <%- include('../partials/head') %>
+    <link rel="stylesheet" href="/css/home.css">
     <title>Document</title>
 </head>
 <body>
@@ -10,10 +11,13 @@
         <h2>Welcome to ChatBox</h2>
         <p>the place where you can chat with a random person. The new way to meet new people.</p>
         <form action="/storeUser" method="post">
-            <label for="userName">Your name</label>
-            <input type="text" name="username" id="userName" autocomplete="off" placeholder="name you want to be displayed" required>
-            <button class="CTA">start new chat</button>
+            <label for="userName">Username</label>
+            <input type="text" name="username" id="userName" autocomplete="off" placeholder="username" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="password" required>
+            <button class="CTA">login</button>
         </form>
+        <button class="CTA">register</button>
     </main>
 </body>
 </html>
