@@ -8,16 +8,14 @@
 <body>
     <%- include('../partials/header') %>
     <main>
-        <h2>Welcome to ChatBox</h2>
-        <p>the place where you can chat with a random person. The new way to meet new people.</p>
-        <form action="/storeUser" method="post">
+        <h2>Register</h2>
+        <form action="/registerUser" method="post">
             <label for="userName">Username</label>
             <input type="text" name="username" id="userName" autocomplete="off" placeholder="username" required>
             <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="password" required>
-            <button class="CTA">login</button>
+            <button type="submit" class="CTA">create user</button>
         </form>
-        <a href="/register">register</a>
     </main>
 </body>
 </html>

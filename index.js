@@ -23,6 +23,7 @@ mongoose.connect(url)
 
 const loginRoute = require('./routes/loginRoute')
 const chatRoute = require('./routes/chatRoute')
+const registerRoute = require('./routes/registerRoute')
 
 app
 .set('view engine', 'ejs')
@@ -38,5 +39,6 @@ app
 )
 .use('/', loginRoute)
 .use('/', chatRoute)
+.use('/', registerRoute)
 
 require('./websocket.js')
