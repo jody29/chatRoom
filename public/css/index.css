@@ -38,3 +38,18 @@ p {
     margin-top: 1rem;
     margin-bottom: 2rem;
 }
+
+.upper {
+   display: flex;
+   align-items: center;
+}
+
+.upper form {
+    background-color: transparent;
+    margin-left: auto;
+    padding: 0;
+}
+
+.upper form button {
+    padding: .5em;
+}

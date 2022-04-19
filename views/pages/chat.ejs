@@ -8,32 +8,54 @@
 <body>
     <%- include('../partials/header') %>
     <main>
-        <h2>Welcome <%= username %></h2>
-        <ul id="messages">
-            <% if (chats) { %> <% chats.forEach(chat => { %> <% if
-				(chat.username === username.login) { %>
-				<li class="outgoing">
-					<div class="metadata">
-						<span class="author">You</span>
-						<span class="date"><%= chat.date %></span>
-					</div>
-					<p><%= chat.message %></p>
-				</li>
-				<% } else { %>
-				<li class="incoming">
-					<div class="metadata">
-						<span class="author"><%= chat.username %></span>
-						<span class="date"><%= chat.date %></span>
-					</div>
-					<p><%= chat.message %></p>
-				</li>
-				<% }})} %>
+        <div class="upper">
+            <% if (chat) { %> 
+            <h2><%= chat.name %></h2>
+            <% } else { %>
+            <form action="/join" method="post" id="joinRoom">
+                <input type="hidden" name="roomId" id="roomId" value="<%= roomId %>">
+                <button type="submit">join room</button>
+            </form>
+            <% } %>
+            <form action="/logout" method="post">
+                <button type="submit">logout</button>
+            </form>
+        </div>
+        <section id="chatBox">
+        <ul id="users">
+            <p>Online:</p>
         </ul>
-        <form action="" id="messageForm">
-            <input type="hidden" name="username" id="username" value="<%= username %>">
-            <input type="text" name="message" id="message">
-            <button type="submit">send</button>
-        </form>
+        <div id="chatWithInput">
+            <ul id="messages">
+                <% if (chat) { %> <% chat.messages.forEach(chat => { %> <% if
+                    (chat.username === username) { %>
+                    <li class="outgoing">
+                        <div class="metadata">
+                            <span class="author">You</span>
+                            <span class="date"><%= chat.date %></span>
+                        </div>
+                        <p><%= chat.message %></p>
+                    </li>
+                    <% } else { %>
+                    <li class="incoming">
+                        <div class="metadata">
+                            <span class="author"><%= chat.username %></span>
+                            <span class="date"><%= chat.date %></span>
+                        </div>
+                        <p><%= chat.message %></p>
+                    </li>
+                    <% }})} %>
+            </ul>
+            <form action="" id="messageForm">
+                <input type="hidden" name="username" id="username" value="<%= username %>">
+                <% if (chat) { %>
+                <input type="hidden" name="chatId" id="chatId" value="<%= chat.id %>">
+                <% } %>
+                <input type="text" name="message" id="message">
+                <button type="submit">send</button>
+            </form>
+        </div>
+        </section>
         <p id="typing"></p>
     </main>
 </body>

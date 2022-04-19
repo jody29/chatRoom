@@ -4,14 +4,39 @@ const router = express.Router()
 
 router
 .get('/', (req, res) => {
-    res.render('pages/index')
+    if(req.session.username) {
+        res.redirect('/chatOverview')
+    } else {
+        res.render('pages/index', {
+            message: ''
+        })
+    }
 })
 .post('/storeUser', async (req, res) => {
-    const user = await Users.findOne({ username: req.body.username })
+    try {
+        const user = await Users.findOne({ username: req.body.username }) 
+        
+        if (user != null) {
+            const match = await user.password === req.body.password
 
-    
+            if (match) {
+                req.session.username = req.body.username
+                res.redirect('/chatOverview')
+            } else {
+                res.render('pages/index', {
+                    message: 'username and password do not match'
+                })
+            }
 
-    res.redirect('/chat')
+        } else {
+            res.render('pages/index', {
+                message: 'username does not exist'
+            })
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 module.exports = router

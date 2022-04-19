@@ -6,9 +6,16 @@ const messageSchema = new Schema({
     password: String,
     chats: [
         {
-            username: String,
-            date: String,
-            message: String
+            users: [],
+            id: String,
+            name: String,
+            messages: [
+                {
+                    username: String,
+                    date: String,
+                    message: String
+                }
+            ]
         }
     ],
 })

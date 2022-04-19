@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="/css/chatoverview.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <div class="upper"> 
+            <h2>Welcome <%= username %></h2>
+            <form action="/logout" method="post">
+                <button type="submit">logout</button>
+            </form>
+        </div>
+        <form action="/createRoom" method="post" id="roomForm">
+            <input type="hidden" name="username" id="username" value="<%= username %>">
+            <input type="text" name="room" id="room">
+            <button type="submit">create room</button>
+        </form>
+        <h3>Rooms</h3>
+        <% if (chats && chats.length !== 0) { %>
+        <ul id="chats">
+            <% chats.forEach(chat => { %>
+                <a href="/chats/<%= chat.chat.id %>"><p><%= chat.chat.name %></p><p>members: <%= chat.amount %></p></a>
+            <% }) %>
+        </ul> 
+        <% } else { %>
+        <p>No rooms created yet...</p>
+        <% } %>
+        
+    </main>
+</body>
+</html>

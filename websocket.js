@@ -1,28 +1,51 @@
 const server = require('./index').server
 const PORT = process.env.PORT || require('./index').PORT
 const dateFormat = require('dateformat')
-const Chats = require('./model/model.js')
-const fs = require('fs')
+const Users = require('./model/model.js')
 const { Server } = require('socket.io')
 
 const io = new Server(server)
 
 dateFormat.masks.chatFormat = 'HH:MM'
 
-io.on('connection', socket => {
-    socket.on('new message', async data => {
+let onlineUsers = []
 
-        console.log(data)
+io.on('connection', socket => {
+    socket.on('join server', username => {
+        const user = {
+            username,
+            id: socket.id
+        }
+        onlineUsers.push(user)
+        io.emit('new user', onlineUsers)
+    })
+
+    socket.on('new message', async data => {
         try {
             if (data.message === '') return
 
             const body = {
-                message: data.message,
                 username: data.username,
-                date: dateFormat(data.date, 'chatFormat')
+                date: dateFormat(data.date, 'chatFormat'),
+                message: data.message
             }
 
-            Chats.create(body)
+            const user = await Users.findOne({ username: data.username })
+
+            const search = (key, array) => {
+                for (let i=0; i < array.length; i++) {
+                    if(array[i].id === key) {
+                        return array[i]
+                    }
+                }
+            }
+            
+            const chat = search(data.id, user.chats)
+
+            console.log(chat)
+
+            chat.messages.push(body)
+            user.save()
 
             io.sockets.emit('new message', {
                 message: data.message,
@@ -36,6 +59,11 @@ io.on('connection', socket => {
 
     socket.on('typing', data => {
         socket.broadcast.emit('typing', { username: data.username})
+    })
+
+    socket.on('disconnect', () => {
+        onlineUsers = onlineUsers.filter(u => u.id !== socket.id)
+        io.emit('new user', onlineUsers)
     })
 })
 
