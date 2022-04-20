@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 const auth = require('../authentication/auth.js')
 
 router
-.get('/chatOverview', auth ,async (req, res) => {
+.get('/chats', auth ,async (req, res) => {
     try {
         const user = await Users.find({})
 

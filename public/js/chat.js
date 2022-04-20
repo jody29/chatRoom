@@ -6,14 +6,14 @@ const typing = document.querySelector('#typing')
 const users = document.querySelector('#users')
 const userElement = document.querySelectorAll('.userEl')
 const chatId = document.querySelector('#chatId')
+const joinButton = document.querySelector('#joinRoom')
+const roomId = document.querySelector('#roomId').value
 
 let input = document.querySelector('#message')
 
 window.addEventListener('load', () => {
     messages.scrollTop = messages.scrollHeight
 })
-
-socket.emit('join server', username)
 
 form.addEventListener('submit', e => {
     e.preventDefault()

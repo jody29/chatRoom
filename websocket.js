@@ -11,9 +11,9 @@ dateFormat.masks.chatFormat = 'HH:MM'
 let onlineUsers = []
 
 io.on('connection', socket => {
-    socket.on('join server', username => {
+    socket.on('join server', data => {
         const user = {
-            username,
+            username: data.username,
             id: socket.id
         }
         onlineUsers.push(user)

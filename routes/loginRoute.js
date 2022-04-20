@@ -5,7 +5,7 @@ const router = express.Router()
 router
 .get('/', (req, res) => {
     if(req.session.username) {
-        res.redirect('/chatOverview')
+        res.redirect('/chats')
     } else {
         res.render('pages/index', {
             message: ''
@@ -21,7 +21,7 @@ router
 
             if (match) {
                 req.session.username = req.body.username
-                res.redirect('/chatOverview')
+                res.redirect('/chats')
             } else {
                 res.render('pages/index', {
                     message: 'username and password do not match'
