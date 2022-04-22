@@ -1,7 +1,8 @@
 const server = require('./index').server
 const PORT = process.env.PORT || require('./index').PORT
 const dateFormat = require('dateformat')
-const Users = require('./model/model.js')
+const Users = require('./model/model.js').Users
+const Chats = require('./model/model.js').Chats
 const { Server } = require('socket.io')
 
 const io = new Server(server)
